@@ -2,7 +2,7 @@ name: Build Flutter APK
 
 on:
   push:
-    branches: [ "main" ] # يشتغل بمجرد ما ترفع الكود
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -23,13 +23,16 @@ jobs:
           channel: 'stable'
 
       - name: Install dependencies
+        # استبدل كلمة YOUR_FOLDER_NAME باسم المجلد اللي فيه ملف pubspec.yaml
         run: flutter pub get
+        working-directory: ./smart_nutri_ai 
 
       - name: Build APK
-        run: flutter build apk --debug # يبني نسخة التجربة
+        run: flutter build apk --debug
+        working-directory: ./smart_nutri_ai
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: my-app-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          path: smart_nutri_ai/build/app/outputs/flutter-apk/app-debug.apk
